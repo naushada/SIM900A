@@ -5,4 +5,10 @@ AT Command Interface for SIM900A
 3. issue make clean to remove/delete class files.
 4. in bin folder execute run.sh which will launch the SIM900A GUI.
 # Configuration
+1. Once SIM900A GUI is launched by bin/run.sh, 
+2. go to "AT Provisining Interface" tab and provide/enter IP Address of machine on which SIM900A GUI is running and Port number
+3. Provide IP Address "Remote IP Address" on which AT driver is running. AT Driver will be running on a machine which is connected to SIM900A via Serial (Comp) or via USB port.
+4. provide port on which AT driver is expecting AT Command from GUI over UDP Interface.
 
+# Precondition
+1. AT Driver must be running on machine which is connected to SIM900A via Serial interface.
