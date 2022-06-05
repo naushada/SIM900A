@@ -7,37 +7,41 @@ import java.net.*;
  * */
 
 public class UdpClient implements Runnable {
-  private String         ipAddress;
+	private String         ipAddress;
 	private int            udpPort;
-  private String         remoteIpAddress;
+	private String         remoteIpAddress;
 	private int            remoteUdpPort;
-  private DatagramSocket datagramObj;
-  private Thread         threadObj;
+	private DatagramSocket datagramObj;
+	private Thread         threadObj;
 	private String         threadName;
 
 	public UdpClient() {
-    int idx     = 0;	  
-    udpPort     = 8080;
+    	int idx     = 0;	  
+    	udpPort     = 8080;
 		ipAddress   = null;
-	  datagramObj = null;
+	  	datagramObj = null;
 	}/*UdpClient*/
 
 	public UdpClient(int port, String ipAddress) {
-    this.udpPort   = port;
-    this.ipAddress = ipAddress;
+
+    	this.udpPort   = port;
+    	this.ipAddress = ipAddress;
+
 		try {
-		  datagramObj = new DatagramSocket(port, InetAddress.getByName(ipAddress));
+		  	datagramObj = new DatagramSocket(port, InetAddress.getByName(ipAddress));
 		}catch(UnknownHostException | SocketException sE) {
-		  System.out.println("Error " + sE);
+		  	System.out.println("Error " + sE);
 		}
+
 		threadName  = "ReceiveThread";
 		/*this keyword is referring to UdpServer object*/
 		threadObj   = new Thread(this, threadName);
 		/*Newly created thread is suspended unless start is invoked*/
 		threadObj.start();
+
 	}/*UdpClient*/
  
-  public void createSocket() {
+	public void createSocket() {
 
 	  if((this.udpPort != 0) && (this.ipAddress != null)) {
 		  try {
@@ -50,28 +54,29 @@ public class UdpClient implements Runnable {
 	}/*createSocket*/
 
 	public void spawnThread(String threadName) {
-	  if(threadName == null) {
-		  this.threadName = "ReceiveThread";
+		if(threadName == null) {
+			this.threadName = "ReceiveThread";
 		}else {
-      this.threadName = threadName;						
+      		this.threadName = threadName;						
 		}
-    threadObj = new Thread(this, threadName);
+
+    	threadObj = new Thread(this, threadName);
 		/*This invocation will kick the run method*/
 		threadObj.start();
 	}/*spawnThread*/
 
 	public int sendTo(String ATCommand) {
-    try {
+    	try {
 						
 			/*Converting from string into byte Array*/
-		  byte[] byteArray = ATCommand.getBytes();
+			byte[] byteArray = ATCommand.getBytes();
 
-      DatagramPacket AT = new DatagramPacket(byteArray, 
-			  							byteArray.length,
+      		DatagramPacket AT = new DatagramPacket(byteArray, 
+				  							byteArray.length,
 											InetAddress.getByName(remoteIpAddress),
 											udpPort);
 
-		  datagramObj.send(AT);
+		  	datagramObj.send(AT);
 
 		}catch(IOException e) {
 		  System.err.println("Error:"+ e);
@@ -80,51 +85,50 @@ public class UdpClient implements Runnable {
 	}/*sendTo*/	
 	
 	public void run() {
-	  try {
-      byte[] buf = new byte[2048];
-      DatagramPacket packetObj = new DatagramPacket(buf, buf.length);
-      String ATResponse;
+		try {
+    		byte[] buf = new byte[2048];
+    		DatagramPacket packetObj = new DatagramPacket(buf, buf.length);
+    		String ATResponse;
 			
 			/*Enter into forever loop*/
 			for(;;) {
-			  datagramObj.receive(packetObj);
+				datagramObj.receive(packetObj);
 				//System.out.println(new String(packetObj.getData(), 0, packetObj.getLength()));
 				ATResponse = new String(packetObj.getData(), 0, packetObj.getLength());
 				/*Displaying Received Text in DisplayWindow*/
 				Widget.getDisplayWindow().append(ATResponse + "\n");
 			}
 
-		 /*To be updated*/ 
+			/*To be updated*/ 
 		}catch(Exception e) {
-		  /*To be writen*/
-       System.out.println("Error has happened" + e);						
+			/*To be writen*/
+       		System.out.println("Error has happened" + e);						
 		}
 	}/*run*/
 
 	public void setIpAddress(String ip) {
-    ipAddress = ip;					
+    	ipAddress = ip;					
 	}/*setIpAddress*/
 
 	public void setPort(int port) {
-	  udpPort = port;
+		udpPort = port;
 	}/*setPort*/
 
 	public String getIpAddress() {
-	  return ipAddress;
+		return ipAddress;
 	}/*getIpAddress*/
 
 	public int getPort() {
-	  return udpPort;
+		return udpPort;
 	}/*getPort*/
 
 	public void setRemoteIpAddress(String ip) {
-    remoteIpAddress = ip;					
+    	remoteIpAddress = ip;					
 	}/*setIpAddress*/
 
 	public String getRemoteIpAddress() {
-	  return remoteIpAddress;
+		return remoteIpAddress;
 	}/*getIpAddress*/
-
 
 }/*UdpClient Class*/
 

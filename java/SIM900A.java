@@ -20,16 +20,17 @@ import javax.swing.SpringLayout;
 public class SIM900A {
 
 	public static void main(String[] args) {
-    int            idx           = 0;
-    Tabbed         tabbed        = new Tabbed();					
-    JFrame         frame         = new JFrame("SIM900");
-    CommandHistory historyWindow = new CommandHistory();
+    	int            idx           = 0;
+    	Tabbed         tabbed        = new Tabbed();					
+    	JFrame         frame         = new JFrame("SIM900");
+    	CommandHistory historyWindow = new CommandHistory();
 
 		frame.addWindowListener(new WindowAdapter() {
-		  public void windowClosing(WindowEvent e) {
-        System.exit(0);							
+		  	public void windowClosing(WindowEvent e) {
+        		System.exit(0);							
 			}				
 		});
+
 		/*Creating MenuBar*/
 		/*
 		String[] menuNameList = {"File",
@@ -43,30 +44,28 @@ public class SIM900A {
 						                   {"Item7", "Item8","Item9"}
 		                          };
 		MenuWidget menuBar = new MenuWidget(menuNameList, menuItemList);
-    */
+    	*/
 		JTabbedPane tabbedPane  = tabbed.createTabbedPane();
-    JPanel      displayArea = historyWindow.createCommandHistory();
+    	JPanel      displayArea = historyWindow.createCommandHistory();
     
-    //frame.setJMenuBar(menuBar.getMenuBar());
+    	//frame.setJMenuBar(menuBar.getMenuBar());
 		frame.add(tabbedPane);
-    frame.add(displayArea);
+    	frame.add(displayArea);
 		/*Creating the Window splitter/separater*/
-		JSplitPane jsp = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-										                tabbedPane,
-																		displayArea);
+		JSplitPane jsp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabbedPane, displayArea);
 		jsp.setOneTouchExpandable(true);
 		jsp.setDividerLocation(0.25);
 		frame.add(jsp);
 
 		/*If not packed then last added component will be displayed*/
 		frame.pack();
-    frame.setVisible(true);	
+    	frame.setVisible(true);	
 		/*static member function for adding text to Output Window*/
-    Widget.setDisplayWindow(historyWindow.getDisplayWindowObject());
+    	Widget.setDisplayWindow(historyWindow.getDisplayWindowObject());
 		
 		UdpClient uClient = new UdpClient();
 		Widget.setUdpObject(uClient);
 
-    tabbedPane.addChangeListener(tabbed.getChangeListener());
+    	tabbedPane.addChangeListener(tabbed.getChangeListener());
 	}/*main*/
 }

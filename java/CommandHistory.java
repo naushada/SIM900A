@@ -17,9 +17,9 @@ import javax.swing.SpringLayout;
  * */
 
 public class CommandHistory {
-  /*private data member*/				
-  private   String    historyText;
-  private   int       textAreaColumn;
+	/*private data member*/				
+  	private   String    historyText;
+  	private   int       textAreaColumn;
 	private   int       textAreaRow;
 	private   JTextArea displayWindow;
 	private   JPanel    displayWindowContainer;
@@ -27,7 +27,7 @@ public class CommandHistory {
 	/*Default constructor*/
 	public CommandHistory() {
 
-	  historyText            = null;
+		historyText            = null;
 		textAreaColumn         = 700;
 		textAreaRow            = 425;
 		displayWindow          = null;
@@ -35,56 +35,54 @@ public class CommandHistory {
 	}
 
 	public JTextArea getDisplayWindowObject() {
-	  return displayWindow;
+		return displayWindow;
 	}/*getDisplayWindowObject*/
 	
 	public void setHistoryText(String text) {
-	  historyText = text;
+		historyText = text;
 	}	
 
 	public String getHistoryText() {
-	  return historyText;
+		return historyText;
 	}
-  public void finalize() {
+  	public void finalize() {
     	
-	  historyText            = null;
+		historyText            = null;
 		displayWindow          = null;
 		displayWindowContainer = null;
 		/*Invoking garbage collection*/
 		System.gc();
 	}
-  public void addTextToDisplayWindow(String outPutText) {
+
+  	public void addTextToDisplayWindow(String outPutText) {
 		/*Adding Text to Output Windoq*/
-	  displayWindow.append(outPutText);
+	  	displayWindow.append(outPutText);
 
 	}/*addTextToDisplayWindow*/
 
 	public JPanel createCommandHistory() {
 
-	  displayWindow          = new JTextArea();
+	  	displayWindow          = new JTextArea();
     
 		/*Panel will hosts the TextArea*/
 		displayWindowContainer = new JPanel(new GridLayout(1,1));
 		/*Making displayWindow non-editable*/
 		displayWindow.setEditable(false);
-    displayWindow.setFont(new Font("Serif", Font.ITALIC, 15));
-    displayWindow.setLineWrap(true);
-    displayWindow.setWrapStyleWord(true);
+    	displayWindow.setFont(new Font("Serif", Font.ITALIC, 15));
+    	displayWindow.setLineWrap(true);
+    	displayWindow.setWrapStyleWord(true);
 		/*Setting the Text Color and Window's background*/
 		displayWindow.setForeground(Color.BLUE);
 		displayWindow.setBackground(Color.WHITE);
+
 		/*Adding scrollbar to display window*/
-		JScrollPane scrollBar = new JScrollPane(displayWindow,
-										                        ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-										                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scrollBar = new JScrollPane(displayWindow, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 		scrollBar.setPreferredSize(new Dimension(textAreaColumn,textAreaRow));
-    /*Adding scrollbar to JPanel*/
+    	/*Adding scrollbar to JPanel*/
 		displayWindowContainer.add(scrollBar);
 
-		displayWindowContainer.setBorder(BorderFactory.createTitledBorder(
-														BorderFactory.createLoweredBevelBorder(), 
-														"History Window"));
-    return displayWindowContainer;
+		displayWindowContainer.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "History Window"));
+    	return displayWindowContainer;
 	}/*createCommandHistory*/
 }
